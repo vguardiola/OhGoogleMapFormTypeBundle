@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GoogleMapType extends AbstractType
 {
@@ -27,22 +27,22 @@ class GoogleMapType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'type'           => 'text',  // the types to render the lat and lng fields as
-            'options'        => array(), // the options for both the fields
-            'lat_options'  => array(),   // the options for just the lat field
-            'lng_options' => array(),    // the options for just the lng field
-            'lat_name'       => 'lat',   // the name of the lat field
-            'lng_name'       => 'lng',   // the name of the lng field
-            'error_bubbling' => false,
-            'map_width'      => 300,     // the width of the map
-            'map_height'     => 300,     // the height of the map
-            'default_lat'    => 51.5,    // the starting position on the map
-            'default_lng'    => -0.1245, // the starting position on the map
-            'include_jquery' => false,   // jquery needs to be included above the field (ie not at the bottom of the page)
-            'include_gmaps_js'=>true     // is this the best place to include the google maps javascript?
+            'type'            => 'text',  // the types to render the lat and lng fields as
+            'options'         => array(), // the options for both the fields
+            'lat_options'     => array(), // the options for just the lat field
+            'lng_options'     => array(), // the options for just the lng field
+            'lat_name'        => 'lat',   // the name of the lat field
+            'lng_name'        => 'lng',   // the name of the lng field
+            'error_bubbling'  => false,
+            'map_width'       => 300,     // the width of the map
+            'map_height'      => 300,     // the height of the map
+            'default_lat'     => 51.5,    // the starting position on the map
+            'default_lng'     => -0.1245, // the starting position on the map
+            'include_jquery'  => false,   // jquery needs to be included above the field (ie not at the bottom of the page)
+            'include_gmaps_js'=>true      // is this the best place to include the google maps javascript?
         ));
     }
 
@@ -66,7 +66,10 @@ class GoogleMapType extends AbstractType
         return 'form';
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
     {
         return 'oh_google_maps';
     }
